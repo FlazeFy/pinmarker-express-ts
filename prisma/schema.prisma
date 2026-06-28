@@ -1,0 +1,224 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model admin {
+  id                String  @id @db.VarChar(36)
+  fullname          String  @db.VarChar(50)
+  username          String  @db.VarChar(36)
+  email             String  @db.VarChar(255)
+  telegram_user_id  String? @db.VarChar(36)
+  telegram_is_valid Boolean
+  password          String  @db.VarChar(500)
+}
+
+model bot_relation {
+  id                String    @id @db.VarChar(36)
+  context_id        String    @db.VarChar(255)
+  relation_type     String    @db.VarChar(36)
+  relation_platform String    @db.VarChar(14)
+  relation_name     String?   @db.VarChar(75)
+  created_at        DateTime  @db.DateTime(0)
+  created_by        String?   @db.VarChar(36)
+  expired_at        DateTime? @db.Date
+}
+
+model dictionary {
+  id               String  @id @db.VarChar(36)
+  dictionary_type  String  @db.VarChar(36)
+  dictionary_name  String  @db.VarChar(36)
+  dictionary_color String? @db.VarChar(36)
+  dictionary_icon  String? @db.VarChar(36)
+  created_by       String? @db.VarChar(36)
+}
+
+model feedback {
+  id            String   @id @db.VarChar(36)
+  feedback_rate Int
+  feedback_body String   @db.VarChar(255)
+  created_at    DateTime @db.DateTime(0)
+}
+
+model gallery {
+  id              String   @id @db.VarChar(36)
+  pin_id          String   @db.VarChar(36)
+  gallery_type    String   @db.VarChar(14)
+  gallery_url     String   @db.VarChar(1000)
+  gallery_caption String   @db.VarChar(500)
+  created_at      DateTime @db.DateTime(0)
+  created_by      String   @db.VarChar(36)
+}
+
+model global_list {
+  id         String    @id @db.VarChar(36)
+  list_code  String?   @db.VarChar(6)
+  list_name  String    @db.VarChar(75)
+  list_desc  String?   @db.VarChar(255)
+  created_at DateTime  @db.DateTime(0)
+  created_by String    @db.VarChar(36)
+  updated_at DateTime? @db.DateTime(0)
+}
+
+model global_list_pin_relation {
+  id         String   @id @db.VarChar(36)
+  pin_id     String   @db.VarChar(36)
+  list_id    String   @db.VarChar(36)
+  created_at DateTime @db.DateTime(0)
+  created_by String   @db.VarChar(36)
+}
+
+model global_list_tag_relation {
+  id         String   @id @db.VarChar(36)
+  tag_name   String   @db.VarChar(36)
+  list_id    String   @db.VarChar(36)
+  created_at DateTime @db.DateTime(0)
+}
+
+model history {
+  id              String   @id @db.VarChar(36)
+  history_type    String   @db.VarChar(36)
+  history_context String   @db.VarChar(255)
+  created_at      DateTime @db.DateTime(0)
+  created_by      String   @db.VarChar(36)
+}
+
+model news {
+  id           String   @id @db.VarChar(36)
+  pin_id       String   @db.VarChar(36)
+  news_title   String   @db.VarChar(255)
+  news_url     String   @db.Text
+  news_source  String   @db.VarChar(36)
+  published_at DateTime @db.DateTime(0)
+  created_at   DateTime @db.DateTime(0)
+}
+
+model pin {
+  id           String    @id @db.VarChar(36)
+  pin_name     String    @db.VarChar(75)
+  pin_desc     String?   @db.VarChar(500)
+  pin_lat      String    @db.VarChar(144)
+  pin_long     String    @db.VarChar(144)
+  pin_category String    @db.VarChar(36)
+  pin_person   String?   @db.VarChar(75)
+  pin_call     String?   @db.VarChar(16)
+  pin_email    String?   @db.VarChar(255)
+  pin_address  String?   @db.VarChar(500)
+  pin_village  String?   @db.VarChar(75)
+  pin_suburb   String?   @db.VarChar(75)
+  pin_city     String?   @db.VarChar(75)
+  pin_country  String?   @db.VarChar(75)
+  pin_image    String?   @db.Text
+  is_favorite  Boolean
+  created_at   DateTime  @db.DateTime(0)
+  created_by   String    @db.VarChar(36)
+  updated_at   DateTime? @db.DateTime(0)
+  deleted_at   DateTime? @db.DateTime(0)
+}
+
+model review {
+  id            String   @id @db.VarChar(36)
+  visit_id      String   @db.VarChar(36)
+  review_person String   @db.VarChar(36)
+  review_rate   Int
+  review_body   String?  @db.VarChar(255)
+  created_at    DateTime @db.DateTime(0)
+  created_by    String   @db.VarChar(36)
+}
+
+model schedule {
+  id                  String    @id @db.VarChar(36)
+  pin_id              String    @db.VarChar(36)
+  schedule_day        String    @db.VarChar(3)
+  schedule_hour_start DateTime? @db.Time(0)
+  schedule_hour_end   DateTime? @db.Time(0)
+  is_24_h             Boolean
+  is_closed           Boolean
+}
+
+model token {
+  id          Int       @id @default(autoincrement())
+  token_key   String    @db.VarChar(75)
+  token_value String    @db.VarChar(144)
+  created_at  DateTime  @db.DateTime(0)
+  updated_at  DateTime? @db.DateTime(0)
+  created_by  String    @db.VarChar(36)
+  updated_by  String?   @db.VarChar(36)
+}
+
+model user {
+  id                String    @id @db.VarChar(36)
+  fullname          String    @db.VarChar(50)
+  username          String    @db.VarChar(36)
+  email             String    @db.VarChar(255)
+  telegram_user_id  String?   @db.VarChar(36)
+  telegram_is_valid Boolean
+  password          String    @db.VarChar(500)
+  img_url           String?   @db.VarChar(500)
+  created_at        DateTime  @db.DateTime(0)
+  updated_at        DateTime? @db.DateTime(0)
+  last_login        DateTime? @db.DateTime(0)
+}
+
+model user_token {
+  id         String   @id @db.VarChar(36)
+  user_id    String   @db.VarChar(36)
+  role       String   @db.VarChar(16)
+  token      String   @unique(map: "token") @db.VarChar(80)
+  expired_at DateTime @db.DateTime(0)
+  created_at DateTime @db.DateTime(0)
+}
+
+model validate_request {
+  id              String   @id @db.VarChar(36)
+  request_type    String   @db.VarChar(36)
+  request_context String   @db.VarChar(75)
+  created_at      DateTime @db.DateTime(0)
+  created_by      String   @db.VarChar(36)
+}
+
+model visit {
+  id         String    @id @db.VarChar(36)
+  pin_id     String?   @db.VarChar(36)
+  visit_desc String?   @db.VarChar(255)
+  visit_by   String    @db.VarChar(75)
+  visit_with String?   @db.VarChar(500)
+  created_at DateTime  @db.DateTime(0)
+  created_by String    @db.VarChar(36)
+  updated_at DateTime? @db.DateTime(0)
+}
+
+model weather_forecast_cache {
+  id             String   @id @db.VarChar(36)
+  related_pin_id String?  @db.VarChar(36)
+  latitude       String   @db.VarChar(144)
+  longitude      String   @db.VarChar(144)
+  start_date     DateTime @db.Date
+  end_date       DateTime @db.Date
+  timezone       String   @db.VarChar(75)
+  created_at     DateTime @db.DateTime(0)
+
+  @@index([latitude, longitude], map: "idx_coordinate")
+  @@index([start_date], map: "idx_date")
+  @@index([related_pin_id, start_date], map: "idx_pin_date")
+}
+
+model weather_forecast_cache_detail {
+  id                String   @id @db.VarChar(36)
+  forecast_cache_id String   @db.VarChar(36)
+  forecast_datetime DateTime @db.DateTime(0)
+  weather_code      Int      @db.SmallInt
+  temperature       Decimal  @db.Decimal(10, 2)
+  feels_like        Decimal  @db.Decimal(10, 2)
+  humidity          Int      @db.TinyInt
+  wind_speed        Decimal  @db.Decimal(10, 2)
+  aqi               Int?     @db.SmallInt
+  pm2_5             Decimal  @db.Decimal(10, 2)
+  pm10              Decimal  @db.Decimal(10, 2)
+  carbon_monoxide   Decimal  @db.Decimal(10, 2)
+  nitrogen_dioxide  Decimal  @db.Decimal(10, 2)
+}

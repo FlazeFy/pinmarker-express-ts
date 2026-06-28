@@ -1,0 +1,34 @@
+{
+  "name": "pinmarker-express-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlazeFy/pinmarker-express-ts.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FlazeFy/pinmarker-express-ts/issues"
+  },
+  "homepage": "https://github.com/FlazeFy/pinmarker-express-ts#readme",
+  "dependencies": {
+    "@prisma/client": "^7.8.0",
+    "express": "^5.2.1",
+    "graphql": "^16.14.2",
+    "graphql-yoga": "^5.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.0.1",
+    "nodemon": "^3.1.14",
+    "prisma": "^7.8.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}
