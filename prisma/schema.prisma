@@ -95,6 +95,8 @@ model news {
   news_source  String   @db.VarChar(36)
   published_at DateTime @db.DateTime(0)
   created_at   DateTime @db.DateTime(0)
+
+  pin pin? @relation(fields: [pin_id], references: [id])
 }
 
 model pin {
@@ -118,6 +120,8 @@ model pin {
   created_by   String    @db.VarChar(36)
   updated_at   DateTime? @db.DateTime(0)
   deleted_at   DateTime? @db.DateTime(0)
+
+  news news[]
 }
 
 model review {

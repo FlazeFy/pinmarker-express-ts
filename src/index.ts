@@ -1,7 +1,7 @@
 import express from "express"
 import { createYoga } from "graphql-yoga"
 import { makeExecutableSchema } from "@graphql-tools/schema"
-import { typeDefs } from "./schema"
+import { typeDefs } from "./schemas"
 import { prisma } from "./context"
 import { resolvers } from "./resolvers"
 

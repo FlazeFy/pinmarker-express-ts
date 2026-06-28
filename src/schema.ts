@@ -64,10 +64,21 @@ export const typeDefs = /* GraphQL */ `
         deleted_at: DateTime
     }
 
+    type news {
+        id: String!
+        pin_id: String!
+        news_title: String!
+        news_url: String!
+        news_source: String!
+        published_at: DateTime!
+        created_at: DateTime
+    }
+
     type Query {
         weatherForecastCaches: [WeatherForecastCache!]!
         weatherForecastCacheDetails: [WeatherForecastCacheDetail!]!
         visitHistories(start_date: DateTime!, end_date: DateTime!): [Visit!]!
         searchPins(pin_name: String, pin_category: String): [Pin!]!
+        searchNews(news_title: String, pin_name: String): [News!]!
     }
 `;
