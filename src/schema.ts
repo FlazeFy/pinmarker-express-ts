@@ -30,8 +30,44 @@ export const typeDefs = /* GraphQL */ `
         nitrogen_dioxide: Decimal!
     }
 
+    type Visit {
+        id: String!
+        pin_id: String
+        visit_desc: String
+        visit_by: String!
+        visit_with: String
+        created_at: DateTime!
+        created_by: String!
+        updated_at: DateTime
+    }
+      
+    type Pin {
+        id: String!
+        pin_name: String!
+        pin_desc: String
+        pin_lat: String!
+        pin_long: String!
+        pin_category: String!
+        pin_person: String
+        pin_call: String
+        pin_email: String
+        pin_address: String
+        pin_village: String
+        pin_suburb: String
+        pin_city: String
+        pin_country: String
+        pin_image: String
+        is_favorite: Boolean!
+        created_at: DateTime!
+        created_by: String!
+        updated_at: DateTime
+        deleted_at: DateTime
+    }
+
     type Query {
         weatherForecastCaches: [WeatherForecastCache!]!
         weatherForecastCacheDetails: [WeatherForecastCacheDetail!]!
+        visitHistories(start_date: DateTime!, end_date: DateTime!): [Visit!]!
+        searchPins(pin_name: String, pin_category: String): [Pin!]!
     }
 `;
