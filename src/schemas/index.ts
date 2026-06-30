@@ -4,6 +4,7 @@ import { pinSchema } from "./pin.schema"
 import { newsSchema } from "./news.schema"
 import { feedbackSchema } from "./feedback.schema"
 import { dictionarySchema } from "./dictionary.schema"
+import { userSchema } from "./user.schema"
 
 const baseSchema = /* GraphQL */ `
     type Query
@@ -16,5 +17,6 @@ export const typeDefs = [
     pinSchema,
     newsSchema,
     feedbackSchema,
-    dictionarySchema
+    dictionarySchema,
+    userSchema
 ]

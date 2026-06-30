@@ -122,6 +122,7 @@ model pin {
   deleted_at   DateTime? @db.DateTime(0)
 
   news news[]
+  visits visit[]
 }
 
 model review {
@@ -132,6 +133,8 @@ model review {
   review_body   String?  @db.VarChar(255)
   created_at    DateTime @db.DateTime(0)
   created_by    String   @db.VarChar(36)
+
+  visit visit @relation(fields: [visit_id], references: [id])
 }
 
 model schedule {
@@ -194,6 +197,9 @@ model visit {
   created_at DateTime  @db.DateTime(0)
   created_by String    @db.VarChar(36)
   updated_at DateTime? @db.DateTime(0)
+
+  pin     pin?     @relation(fields: [pin_id], references: [id])
+  reviews review[]
 }
 
 model weather_forecast_cache {
