@@ -1,4 +1,5 @@
 import { Context } from "../context"
+import { searchDictionaryRepository } from "../repositories/dictionary.repository"
 
 export const dictionaryResolver = {
     Query: {
@@ -7,13 +8,6 @@ export const dictionaryResolver = {
             { dictionary_type }: { dictionary_type?: string },
             ctx: Context
         ) => 
-            ctx.prisma.dictionary.findMany({
-                where: {
-                    ...(dictionary_type && { dictionary_type: { equals: dictionary_type }})
-                },
-                orderBy: [
-                    { dictionary_name: "asc" }
-                ]
-            })
+            searchDictionaryRepository(ctx.prisma, dictionary_type)
     } 
 }

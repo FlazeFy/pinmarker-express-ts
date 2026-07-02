@@ -1,4 +1,5 @@
 import { Context } from "../context"
+import { searchVisitHistoryRepository } from "../repositories/visit.repository";
 
 export const visitResolver = {
     Query: {
@@ -7,13 +8,6 @@ export const visitResolver = {
             { start_date, end_date }: { start_date: Date; end_date: Date },
             ctx: Context
         ) =>
-            ctx.prisma.visit.findMany({
-                where: {
-                    created_at: {
-                        gte: new Date(start_date), lte: new Date(end_date),
-                    },
-                },
-                orderBy: { created_at: "desc" },
-            }),
-    },
+            searchVisitHistoryRepository(ctx.prisma, start_date, end_date)
+    }
 }

@@ -1,4 +1,5 @@
 import { Context } from "../context"
+import { searchPinRepository } from "../repositories/pin.repository";
 
 export const pinResolver = {
     Query: {
@@ -7,13 +8,6 @@ export const pinResolver = {
             { pin_name, pin_category }: { pin_name?: string; pin_category?: string },
             ctx: Context
         ) =>
-            ctx.prisma.pin.findMany({
-                where: {
-                    deleted_at: null,
-                    ...(pin_name && { pin_name: { contains: pin_name } }),
-                    ...(pin_category && { pin_category }),
-                },
-                orderBy: { created_at: "desc" },
-            }),
+            searchPinRepository(ctx.prisma, pin_name, pin_category)
     },
 }

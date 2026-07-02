@@ -1,5 +1,5 @@
-import { randomUUID } from "crypto"
 import { Context } from "../context"
+import { createFeedbackRepository, searchFeedbacksRepository } from "../repositories/feedback.repository"
 
 export const feedbackResolver = {
     Query: {
@@ -8,16 +8,7 @@ export const feedbackResolver = {
             { feedback_rate, feedback_body }: { feedback_rate?: number, feedback_body?: string },
             ctx: Context
         ) => 
-            ctx.prisma.feedback.findMany({
-                where: {
-                    ...(feedback_rate && { feedback_rate: { equals: feedback_rate }}),
-                    ...(feedback_body && { feedback_body: { contains: feedback_body }})
-                },
-                orderBy: [
-                    { feedback_rate: "desc" },
-                    { created_at: "desc" },
-                ]
-            })
+            searchFeedbacksRepository(ctx.prisma, feedback_rate, feedback_body)
     },
     Mutation: {
         createFeedback: (
@@ -28,13 +19,6 @@ export const feedbackResolver = {
             },
             ctx: Context
         ) =>
-            ctx.prisma.feedback.create({
-                data: {
-                    id: randomUUID(),
-                    feedback_rate,
-                    feedback_body,
-                    created_at: new Date()
-                }
-            })
+            createFeedbackRepository(ctx.prisma,feedback_rate, feedback_body)
     }
 }

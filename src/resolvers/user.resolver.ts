@@ -1,53 +1,10 @@
 import { Context } from "../context"
+import { searchUsersRepository } from "../repositories/user.repository"
 
 export const userResolver = {
     Query: {
         searchUsers: async (_: any, { search }: { search?: string }, ctx: Context) => {
-            const users = await ctx.prisma.user.findMany({
-                where: {
-                    OR: [
-                        { username: { contains: search } },
-                        { email: { contains: search } },
-                        { fullname: { contains: search } },
-                    ],
-                },
-                orderBy: { created_at: "desc" },
-            })
-
-            return Promise.all(
-                users.map(async (user) => {
-                    const [total_pin, total_visit, total_review] = await Promise.all([
-                        ctx.prisma.pin.count({
-                            where: {
-                                created_by: user.id,
-                                deleted_at: null,
-                            },
-                        }),
-                        ctx.prisma.visit.count({
-                            where: {
-                                created_by: user.id,
-                                pin: {
-                                    deleted_at: null,
-                                },
-                            },
-                        }),
-                        ctx.prisma.review.count({
-                            where: {
-                                created_by: user.id,
-                                visit: {
-                                    pin: {
-                                        deleted_at: null,
-                                    },
-                                },
-                            },
-                        }),
-                    ])
-
-                    return {
-                        ...user, total_pin, total_visit, total_review,
-                    }
-                })
-            )
+            searchUsersRepository(ctx.prisma, search)
         },
     },
 }
