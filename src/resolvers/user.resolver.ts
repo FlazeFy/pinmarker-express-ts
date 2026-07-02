@@ -2,8 +2,15 @@ import { Context } from "../context"
 
 export const userResolver = {
     Query: {
-        searchUsers: async (_: any, __: any, ctx: Context) => {
+        searchUsers: async (_: any, { search }: { search?: string }, ctx: Context) => {
             const users = await ctx.prisma.user.findMany({
+                where: {
+                    OR: [
+                        { username: { contains: search } },
+                        { email: { contains: search } },
+                        { fullname: { contains: search } },
+                    ],
+                },
                 orderBy: { created_at: "desc" },
             })
 

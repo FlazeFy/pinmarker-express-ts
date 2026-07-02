@@ -8,6 +8,7 @@ import { userSchema } from "./user.schema"
 
 const baseSchema = /* GraphQL */ `
     type Query
+    type Mutation
 `
 
 export const typeDefs = [

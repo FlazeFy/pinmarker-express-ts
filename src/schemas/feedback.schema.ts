@@ -9,4 +9,11 @@ export const feedbackSchema = /* GraphQL */ `
     extend type Query {
         searchFeedbacks(feedback_rate: Int, feedback_body: String): [Feedback!]!
     }
+
+    extend type Mutation {
+        createFeedback(
+            feedback_rate: Int!
+            feedback_body: String!
+        ): Feedback!
+    }
 `

@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto"
 import { Context } from "../context"
 
 export const feedbackResolver = {
@@ -17,5 +18,23 @@ export const feedbackResolver = {
                     { created_at: "desc" },
                 ]
             })
-    } 
+    },
+    Mutation: {
+        createFeedback: (
+            _: any,
+            { feedback_rate, feedback_body }: {
+                feedback_rate: number
+                feedback_body: string
+            },
+            ctx: Context
+        ) =>
+            ctx.prisma.feedback.create({
+                data: {
+                    id: randomUUID(),
+                    feedback_rate,
+                    feedback_body,
+                    created_at: new Date()
+                }
+            })
+    }
 }

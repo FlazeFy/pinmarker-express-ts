@@ -12,6 +12,6 @@ export const userSchema = /* GraphQL */ `
     }
 
     extend type Query {
-        searchUsers: [UserSummary!]!
+        searchUsers(search: String): [UserSummary!]!
     }
 `
