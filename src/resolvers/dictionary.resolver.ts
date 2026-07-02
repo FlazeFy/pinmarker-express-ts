@@ -9,8 +9,8 @@ export const dictionaryResolver = {
             { dictionary_type }: { dictionary_type?: string },
             ctx: Context
         ) => {
-            validateContains(dictionary_type, ["pin_category", "visit_by"], "dictionary_type")
-            
+            dictionary_type && validateContains(dictionary_type, ["pin_category", "visit_by"], "dictionary_type")
+
             return searchDictionaryRepository(ctx.prisma, dictionary_type)
         }
     } 
