@@ -1,4 +1,5 @@
 import { Context } from "../context"
+import { user as UserModel } from '../generated/prisma/index'
 
 export const searchUsersRepository = async (
     prisma: Context["prisma"],
@@ -18,7 +19,7 @@ export const searchUsersRepository = async (
     })
 
     return Promise.all(
-        users.map(async (user) => {
+        users.map(async (user: UserModel) => {
             const [total_pin, total_visit, total_review] =
                 await Promise.all([
                     prisma.pin.count({

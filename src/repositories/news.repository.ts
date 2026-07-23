@@ -1,4 +1,5 @@
 import { Context } from "../context"
+import { Prisma } from "../generated/prisma/client"
 
 export const searchNewsRepository = async (
     prisma: Context["prisma"],
@@ -20,7 +21,7 @@ export const searchNewsRepository = async (
             }
         })
 
-        pin_ids = pins.map((p) => p.id)
+        pin_ids = pins.map((p: { id: string }) => p.id)
     }
 
     const news = await prisma.news.findMany({
@@ -49,7 +50,9 @@ export const searchNewsRepository = async (
         }
     })
 
-    return news.map((n) => ({
+    type NewsWithPin = (typeof news)[number]
+
+    return news.map((n: NewsWithPin) => ({
         ...n,
         pin_name: n.pin?.pin_name ?? null,
         pin_lat: n.pin?.pin_lat ?? null,

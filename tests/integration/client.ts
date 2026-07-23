@@ -4,8 +4,9 @@ export default class GraphQLClient {
     private api!: APIRequestContext
 
     async initialize() {
+        console.log('DEBUG BASE_URL:', JSON.stringify(process.env.BASE_URL))
         this.api = await request.newContext({
-            baseURL: process.env.API_URL,
+            baseURL: process.env.BASE_URL,
             extraHTTPHeaders: {
                 'Content-Type': 'application/json'
             }
