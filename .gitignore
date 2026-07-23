@@ -4,3 +4,5 @@ node_modules
 
 /src/generated/prisma
 generated/
+test-results/
+playwright-report/
